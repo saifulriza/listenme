@@ -1,14 +1,24 @@
 <template>
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <input type="file" @change="submit($event, index)" accept="audio/mpeg" />
+
     <div class="container">
+      <!-- <input type="file" @change="submit($event, index)" accept="audio/mpeg" /> -->
+      <div class="upload-btn-wrapper">
+        <button class="btn">Upload a file</button>
+        <input
+          type="file"
+          name="myfile"
+          @change="submit($event, index)"
+          accept="audio/mpeg"
+        />
+      </div>
       <div v-for="(hasil, index) in hasil" :key="index">
         <div v-if="hasil.results">
           <div v-for="(kata, index) in hasil.results" :key="index">
             <div v-for="(finalKata, index) in kata.alternatives" :key="index">
-              <div v-if="kata.final">
-                {{ finalKata.transcript }}
+              <div class="text" v-if="kata.final">
+                <div class="hasil">{{ finalKata.transcript }}</div>
               </div>
             </div>
           </div>
@@ -175,17 +185,75 @@ export const submit = (evt, index) => {
 </script>
 
 <style>
+.hasil {
+  /* word-break: break-all; */
+  word-wrap: break-word;
+  /* white-space: normal; */
+}
+
+.text {
+  /* word-break: break-all; */
+  width: 80vw;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* text-transform: capitalize; */
+}
+
+.hasil:first-letter {
+  text-transform: uppercase;
+}
 .container {
+  justify-content: center;
   padding: 0.4em;
-  margin: 2em;
-  width: 90%;
+  margin: 3em;
+  width: 85vw;
   border-radius: 50px;
-  background: linear-gradient(145deg, #4da7db, #5bc6ff);
-  box-shadow: 20px 20px 60px #489dcf, -20px -20px 60px #62d5ff;
+  background: linear-gradient(145deg, #bbbfc1, #899499);
+  box-shadow: 20px 20px 60px #60696f, -20px -20px 60px #939c9f;
+  min-width: max-content;
+  max-width: 85vw;
+  text-align: center;
+  padding-left: 2%;
+  padding-bottom: 30px;
+  padding-top: 20px;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.6;
+  font-weight: bold;
+  color: #535151;
+  /* padding-right: 2%; */
 }
 html {
   display: flex;
   justify-content: center;
-  background-color: #55b9f3;
+  background-color: #9ba5aa;
+  overflow-x: hidden;
+}
+.home {
+  margin: 7vh;
+}
+.upload-btn-wrapper {
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 </style>
